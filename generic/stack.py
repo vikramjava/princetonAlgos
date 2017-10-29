@@ -27,12 +27,13 @@ class Stack(object):
         self.size -= 1
         return giveFirst.item
 
-    def size(self):
+    def total_size(self):
         return self.size
 
-    def __str__(self):
-        return ''.join([str(item) for item in self])
 
-    def __repr__(self):
-        return self.__str__()
-
+if __name__ == "__main__":
+    curStack = Stack()
+    for i in range(0, 30, 3):
+        curStack.push(i)
+    print curStack.total_size()
+    print curStack.pop()
