@@ -1,6 +1,6 @@
 """ Stack class"""
 
-class Stack(object):
+class Queue(object):
 
 
     class _node(object):
@@ -11,20 +11,27 @@ class Stack(object):
 
     def __init__(self):
         self.first = None
+        self.last = None
         self.size = 0
 
     def isEmpty(self):
-        return (self.size == 0)
+        return (self.first is None)
 
-    def push(self, item):
-        oldFirst = self.first
-        self.first = self._node(item, oldFirst)
+    def enqueue(self, item):
+        oldLast =  self.last
+        self.last = self._node(item, None)
+        if self.isEmpty():
+            self.first = self.last
+        else:
+            oldLast.next = self.last
         self.size += 1
 
-    def pop(self):
+    def dequeue(self):
         giveFirst = self.first
         self.first = self.first.next
         self.size -= 1
+        if self.isEmpty():
+            self.last = None
         return giveFirst.item
 
     def total_size(self):
@@ -32,9 +39,9 @@ class Stack(object):
 
 
 if __name__ == "__main__":
-    curStack = Stack()
+    curStack = Queue()
     for i in range(0, 30):
-        curStack.push(i)
+        curStack.enqueue(i)
     print curStack.total_size()
-    while(curStack.isEmpty() is False):
-        print curStack.pop()
+    while (curStack.isEmpty() is False):
+        print curStack.dequeue()
