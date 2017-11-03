@@ -47,4 +47,21 @@ class BST(object):
         else:             x.right = self._put(x.right, key, val)
         x.N = 1 + self._size(x.left) + self._size(x.right)
         return x
+
+    def _get_min(self, x):
+        return x if x.left is None else self._get_min(x.left)
+
+    def get_min(self):
+        if self.isEmpty():
+            raise Exception("Trying to get a minimum from an empty tree")
+        return self._get_min(self.root)
+
+    def _get_max(self, x):
+        return x if x.right is None else self._get_max(x.right)
+
+    def get_max(self):
+        if self.isEmpty():
+            raise Exception("Trying to get a maximum from an empty tree")
+        return self._get_max(self.root)
+
     
