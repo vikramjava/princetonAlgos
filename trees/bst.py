@@ -85,7 +85,7 @@ class BST(object):
             return None
         if key == x.key:
             return x
-        if k < x.key:
+        if key < x.key:
             t = self._ceil(x.left, key)
             return t if t is not None else x
         return self._ceil(x.right, key)
@@ -103,8 +103,28 @@ class BST(object):
             return 1 + self._size(x.left) + self._size(x.right)
         else:
             return self._size(x.left)
-        
-
 
     def rank(self, key):
-        return _rank(self.root, key)
+        return self._rank(self.root, key)
+
+    def _deleteMin(self, x):
+        if x.left is None:
+            return x.right
+        x.left = self._deleteMin(x.left)
+        x.N = 1 + self._size(x.left) + self._size(x.right)
+        return x
+
+    def deleteMin(self):
+        self.root = self._deleteMin(self.root)
+
+    def _deleteMax(self, x)
+        if x.right is None:
+            return x.left
+        x.right = self._deleteMax(x.right)
+        x.N = 1 + self._size(x.left) + self._size(x.right)
+        return x
+
+    def deleteMax(self, x):
+        self.root = self._deleteMax(self.root)
+
+
