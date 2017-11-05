@@ -94,3 +94,17 @@ class BST(object):
         x = self._ceil(self.root, key)
         return x if x is not None else key
 
+    def _rank(self, x, key):
+        if x is None:
+            return 0
+        if key < x.key:
+            return self._rank(x.left, key)
+        elif key > x.key:
+            return 1 + self._size(x.left) + self._size(x.right)
+        else:
+            return self._size(x.left)
+        
+
+
+    def rank(self, key):
+        return _rank(self.root, key)
