@@ -64,4 +64,33 @@ class BST(object):
             raise Exception("Trying to get a maximum from an empty tree")
         return self._get_max(self.root)
 
-    
+    def _floor(self, x, key):
+        if x is None:
+            return None
+        if key == x.key:
+            return x
+        if key < x.key:
+            return self._floor(x.left, key)
+        t = self._floor(x.right, key)
+        return t if t is not None else return x
+
+    def __floor__(self, key):
+        if key is None: raise Exception("Provided Key is None")
+        if self.isEmpty(): "Current BST is empty"
+        x = self._floor(self.root, key)
+        return x.key if x is not None else None
+
+    def _ceil(self, x, key):
+        if x is None:
+            return None
+        if key == x.key:
+            return x
+        if k < x.key:
+            t = self._ceil(x.left, key)
+            return t if t is not None else x
+        return self._ceil(x.right, key)
+
+    def ceil(self, key):
+        x = self._ceil(self.root, key)
+        return x if x is not None else key
+
