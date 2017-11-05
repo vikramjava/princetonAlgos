@@ -65,4 +65,46 @@ class RedBlackBST(object):
         return x
 
     def _rotateRight(self, h):
-        
+        assert(self._isRed(h.left))
+        x = h.left
+        h.left = x.right
+        x.right = h
+        x.color = h.color
+        h.color = RED
+        return x
+
+    def _invertColor(self, h):
+        assert(self._isRed(h.left))
+        assert(self._isRed(h.right))
+
+        h.color = RED
+        h.right = BLACK
+        h.left  = BLACK
+
+    def put(self, key, val):
+        self.root = self._put(self.root, key, val)
+        self.root.color = BLACK
+
+    def _put(self, x, key, val):
+        if x is None:
+            return self.Node(key, val, RED, 1)
+
+        if key < x.key:
+            x.left = self._put(x.left, key, val)
+        elif key > x.key
+            x.right = self._put(x.right, key, val)
+        else:
+            x.val = val
+
+        if self._isRed(x.right) and not self._isRed(x.left):
+            x = self._rotateLeft(x)
+        if self._isRed(x.left) and self._isRed(x.left.left):
+            x = self._rotateRight(x)
+        if self._isRed(x.left) and self._isRed(x.right):
+            self._invertColor(x)
+        x.count = self.__size(x.left) + self.__size(x.right) + 1
+
+        return x
+
+
+    
