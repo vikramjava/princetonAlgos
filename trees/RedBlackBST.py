@@ -1,9 +1,18 @@
 
+RED = True
+BLACK = False
 
+
+"""
+Properties : 
+
+It is a BST such that:
+1. No node has two red links connected to it.
+2. Every path from root to null link has same number of Black links.
+3. Red links lean left.
+
+"""
 class RedBlackBST(object):
-
-    RED   = True
-    BLACK = False
 
     def __init__(self):
         self.root
@@ -42,7 +51,7 @@ class RedBlackBST(object):
         while x is not None:
             if key < x.key:
                 x = x.left
-            elif key > x.key
+            elif key > x.key:
                 x = x.right
             else:
                 return x.val
@@ -51,7 +60,11 @@ class RedBlackBST(object):
     def contains(self, key):
         return self.get(key) is not None
 
+    def _getMin(self, x):
+        return x if x.left is None else self._getMin(x.left)
 
+    def getMin(self):
+        return self._getMin(self.root)
 
     # Insert into RB-BST
 
@@ -107,4 +120,3 @@ class RedBlackBST(object):
         return x
 
 
-    
