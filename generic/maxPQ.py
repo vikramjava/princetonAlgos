@@ -18,11 +18,13 @@ class maxPQ(object):
         return
 
     def delMax(self):
-        max_val = self.pq[1]
+        max_val = self.pq[0]
         self.pq[0], self.pq[self.N-1] = self.pq[self.N-1], self.pq[0]
-        self._sink(self.pq, 0)
-        self.pq[self.N-1] = None
-        del self.pq[self.N - 1]
+        self.N -= 1
+
+        self._sink(0)
+        #self.pq[self.N - 1] = None
+        del self.pq[self.N]
         return max_val
 
     def isEmpty(self):
@@ -39,19 +41,18 @@ class maxPQ(object):
             a[k], a[k/2] = a[k/2], a[k]
             k = k/2
 
-    def _sink(self, a, k):
+    def _sink(self, k):
         while (2 * k <= self.N):
             if k == 0:
                 j = 1
             else:
-                j = 2 * k
-
+                j = 2 * k - 1
             # Find the larger of 2k and 2k + 1
-            if j < self.N and less(j, j+1):
+            if j < self.N -1 and less(self.pq[j], self.pq[j+1]):
                 j += 1
-            if not less (k, j):
+            if not less (self.pq[k], self.pq[j]):
                 break
-            a[k], a[j] = a[j], a[k]
+            self.pq[k], self.pq[j] = self.pq[j], self.pq[k]
             k = j
 
     def __str__(self):
@@ -65,3 +66,8 @@ if __name__ == "__main__":
     for _ in list:
         pq.insert(_)
     print pq
+    print pq.size()
+    for _ in range(pq.size()):
+        x = pq.delMax()
+        print x
+        print pq
