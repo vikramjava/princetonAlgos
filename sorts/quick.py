@@ -37,9 +37,9 @@ def _sort(in_arr, lo, hi):
     if hi <= lo:
         return
 
-    j = partition(in_arr, lo, hi)
-    _sort(in_arr, lo, j-1)
-    _sort(in_arr, j+1, hi)
+    x = partition(in_arr, lo, hi)
+    _sort(in_arr, lo, x-1)
+    _sort(in_arr, x+1, hi)
 
 def Quick(input_array):
     random.shuffle(input_array)
